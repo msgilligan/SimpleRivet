@@ -3,7 +3,7 @@ This simple app demonstrates how to use Rivetz to create a hardware key and sign
 
 As with all Rivetz solutions, you need to install and activate the RivetAndroid app.
 
-This repository is configured as a Android Studio project. If you want to build your own environment, the only files are
+This repository is configured as a Android Studio project. If you want to build your own environment, the only unique files are
 
 * [MainActivity.java](./app/src/main/java/com/rivetz/samples/simplerivet/MainActivity.java)
 * [Rivet.java](./app/src/main/java/com/rivetz/samples/simplerivet/Rivet.java)
