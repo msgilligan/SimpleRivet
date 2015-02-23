@@ -10,4 +10,4 @@ This repository is configured as a Android Studio project. If you want to build 
 * [activity_main.xml](./app/src/main/res/layout/activity_main.xml)
 * [AndroidManifest.xml](./app/src/main/AndroidManifest.xml)
 
-Please contact [support@rivetz.com] with any questions.
+Please contact support@rivetz.com with any questions.
