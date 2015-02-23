@@ -10,8 +10,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-
 public class MainActivity extends ActionBarActivity {
+    private static final String MYSPID =
+            "98f88054-f98c-440c-81aa-77fa70a31116-fbca7c00-0602-4c1f-a354-820ae9ec46b9";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
 
         Intent intent = new Intent(Rivet.RIVET_INTENT)
                 .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_CREATEKEY)
-                .putExtra(Rivet.EXTRA_SPID, "98f88054-f98c-440c-81aa-77fa70a31116-fbca7c00-0602-4c1f-a354-820ae9ec46b9")
+                .putExtra(Rivet.EXTRA_SPID, MYSPID)
                 .putExtra(Rivet.EXTRA_KEYTYPE, Rivet.KEYTYPE_ECDSA_DEFAULT)
                 .putExtra(Rivet.EXTRA_KEYNAME,"MyKey");
 
@@ -39,16 +40,21 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == Rivet.INSTRUCT_CREATEKEY && resultCode == RESULT_OK) {
                 String keyName = data.getStringExtra(Rivet.EXTRA_KEYNAME);
-                output.setText("done: keyname=" + keyName);
+                output.setText("keyname=" + keyName + "\n\n");
                 Intent intent = new Intent(Rivet.RIVET_INTENT)
-                        .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_GETKEY)
-                        .putExtra(Rivet.EXTRA_SPID, "98f88054-f98c-440c-81aa-77fa70a31116-fbca7c00-0602-4c1f-a354-820ae9ec46b9")
-                        .putExtra(Rivet.EXTRA_KEYNAME, "MyKey");
+                        .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_SIGN)
+                        .putExtra(Rivet.EXTRA_SPID, MYSPID)
+                        .putExtra(Rivet.EXTRA_KEYNAME, keyName)
+                        .putExtra(Rivet.EXTRA_MESSAGE,"This is a test");
 
-                startActivityForResult(intent, Rivet.INSTRUCT_GETKEY);
+                startActivityForResult(intent, Rivet.INSTRUCT_SIGN);
             } else if (requestCode == Rivet.INSTRUCT_GETKEY) {
+                // change the intent fired to GETKEY to display the public key
                 String pubKey = data.getStringExtra(Rivet.EXTRA_PUBLICDATA);
                 output.append("\npubkey="+pubKey);
+            } else if (requestCode == Rivet.INSTRUCT_SIGN) {
+                String signature = data.getStringExtra(Rivet.EXTRA_SIGNATURE);
+                output.append("signature="+signature);
             }
         } else {
             output.setText("not done");
