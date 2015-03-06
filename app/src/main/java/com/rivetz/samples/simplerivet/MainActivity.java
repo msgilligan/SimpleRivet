@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
                 output.append("\nsignature=" + signature + "\n");
             }
         } else if (resultCode == RESULT_CANCELED) {
-            output.append("\ncancelled\n");
+            output.append("\ncancelled request code = "+String.valueOf(requestCode)+"\n");
         } else {
             output.append("\nerror:\n  Request Code = "+String.valueOf(requestCode)+"\n"+
                                     "  Result Code = "+Rivet.FormatError(resultCode)+"\n");
