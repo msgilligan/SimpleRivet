@@ -289,6 +289,6 @@ public class Rivet {
     public static String FormatError(int ERROR) {
         return (ERROR < 0 ? "-" : "")+
                 "0x"+
-                ("00000000" + Integer.toHexString(ERROR)).substring(Integer.toHexString(ERROR).length());
+                ("00000000" + Integer.toHexString(ERROR).toUpperCase()).substring(Integer.toHexString(ERROR).length());
     }
 }
