@@ -40,24 +40,31 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == Rivet.INSTRUCT_CREATEKEY && resultCode == RESULT_OK) {
                 String keyName = data.getStringExtra(Rivet.EXTRA_KEYNAME);
-                output.setText("keyname=" + keyName);
+                output.setText("keyname=" + keyName + "\n\n");
                 Intent intent = new Intent(Rivet.RIVET_INTENT)
                         .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_SIGN)
                         .putExtra(Rivet.EXTRA_SPID, MYSPID)
                         .putExtra(Rivet.EXTRA_KEYNAME, keyName)
-                        .putExtra(Rivet.EXTRA_MESSAGE,"This is a test");
-
+                        .putExtra(Rivet.EXTRA_MESSAGE, "This is a test");
                 startActivityForResult(intent, Rivet.INSTRUCT_SIGN);
+                intent = new Intent(Rivet.RIVET_INTENT)
+                        .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_GETKEY)
+                        .putExtra(Rivet.EXTRA_SPID, MYSPID)
+                        .putExtra(Rivet.EXTRA_KEYNAME, keyName);
+                startActivityForResult(intent, Rivet.INSTRUCT_GETKEY);
             } else if (requestCode == Rivet.INSTRUCT_GETKEY) {
                 // change the intent fired to GETKEY to display the public key
                 String pubKey = data.getStringExtra(Rivet.EXTRA_PUBLICDATA);
-                output.append("\npubkey="+pubKey);
+                output.append("\npubkey=" + pubKey + "\n");
             } else if (requestCode == Rivet.INSTRUCT_SIGN) {
                 String signature = data.getStringExtra(Rivet.EXTRA_SIGNATURE);
-                output.append("\n\nsignature="+signature);
+                output.append("\nsignature=" + signature + "\n");
             }
+        } else if (resultCode == RESULT_CANCELED) {
+            output.append("\ncancelled request code = "+String.valueOf(requestCode)+"\n");
         } else {
-            output.setText("not done");
+            output.append("\nerror:\n  Request Code = "+String.valueOf(requestCode)+"\n"+
+                                    "  Result Code = "+Rivet.FormatError(resultCode)+"\n");
         }
     }
 
