@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
@@ -54,12 +55,15 @@ public class MainActivity extends ActionBarActivity {
         // and get the public key for keyName
         if (requestCode == Rivet.INSTRUCT_CREATEKEY &&
                 (resultCode == RESULT_OK || resultCode == Rivet.ERROR_KEYNAME_EXISTS)) {
+            EditText targetText = (EditText)findViewById(R.id.targetText);
+            String targetTextStr = targetText.getText().toString();
             output.setText("keyname=" + keyName + "\n");
+            output.append("target=" + targetTextStr +"\n");
             Intent intent = new Intent(Rivet.RIVET_INTENT)
                     .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_SIGN)
                     .putExtra(Rivet.EXTRA_SPID, MYSPID)
                     .putExtra(Rivet.EXTRA_KEYNAME, keyName)
-                    .putExtra(Rivet.EXTRA_MESSAGE, R.id.targetText);
+                    .putExtra(Rivet.EXTRA_MESSAGE, targetTextStr);
             startActivityForResult(intent, Rivet.INSTRUCT_SIGN);
             intent = new Intent(Rivet.RIVET_INTENT)
                     .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_GETKEY)
