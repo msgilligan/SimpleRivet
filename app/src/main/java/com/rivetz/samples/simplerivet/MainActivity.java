@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == Rivet.INSTRUCT_CREATEKEY && resultCode == RESULT_OK) {
                 String keyName = data.getStringExtra(Rivet.EXTRA_KEYNAME);
-                output.setText("keyname=" + keyName + "\n\n");
+                output.setText("keyname=" + keyName);
                 Intent intent = new Intent(Rivet.RIVET_INTENT)
                         .putExtra(Rivet.EXTRA_INSTRUCT, Rivet.INSTRUCT_SIGN)
                         .putExtra(Rivet.EXTRA_SPID, MYSPID)
@@ -54,7 +54,7 @@ public class MainActivity extends ActionBarActivity {
                 output.append("\npubkey="+pubKey);
             } else if (requestCode == Rivet.INSTRUCT_SIGN) {
                 String signature = data.getStringExtra(Rivet.EXTRA_SIGNATURE);
-                output.append("signature="+signature);
+                output.append("\n\nsignature="+signature);
             }
         } else {
             output.setText("not done");
