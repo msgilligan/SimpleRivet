@@ -9,7 +9,7 @@ package com.rivetz.samples.simplerivet;
 
 public class Rivet {
     // Intent
-    public static final String RIVET_INTENT		= "com.rivetz.adaptor.RIVETZ_ANDROID";
+    public static final String RIVET_INTENT		= "com.rivetz.adapter.RIVETZ_ANDROID";
     //
     // Rivet.java Version
     //
@@ -18,15 +18,15 @@ public class Rivet {
     //
     public static final int RIVETJAVA_VERSION_MAJOR = 0;
     public static final int RIVETJAVA_VERSION_MINOR = 0;
-    public static final int RIVETJAVA_VERSION_PATCH = 1;
+    public static final int RIVETJAVA_VERSION_PATCH = 2;
     //
     // The single version number has the following structure:
     //    MMNNPP00
     //    Major version | Minor version | Patch version
     //
-    public static final int    RIVETJAVA_VERSION_NUMBER     = 0x00000100;
-    public static final String RIVETJAVA_VERSION		= "0.0.1";
-    public static final String RIVETJAVA_VERSION_FULL	= "Rivet.java v0.0.1";
+    public static final int    RIVETJAVA_VERSION_NUMBER     = 0x00000200;
+    public static final String RIVETJAVA_VERSION		= "0.0.2";
+    public static final String RIVETJAVA_VERSION_FULL	= "Rivet.java v0.0.2";
     //
     // Instructions
     //
@@ -120,7 +120,7 @@ public class Rivet {
     // ERROR CODES - Rivetz
     //
     //
-    public static final int ERROR_NONE		= -0x00000001; // no error - 4 byte error code or use RESULT_OK
+    public static final int ERROR_NONE		= -0xFFFFFFFF; // no error - 4 byte error code or use RESULT_OK
     public static final int ERROR_CANCELED		=  0x00000000; // user cancelled intent or use RESULT_CANCELED
     public static final int ERROR_UNKNOWN		=  0x00000001; // uknown - generic error result
     public static final int ERROR_INVALID_SPID	=  0x00000020; // Invalid Service Provider ID
@@ -129,6 +129,7 @@ public class Rivet {
     public static final int ERROR_INVALID_KEYTYPE	=  0x00000026; // Invalid KEYTYPE passed
     public static final int ERROR_INVALID_KEYNAME	=  0x00000028; // Invalid KEYNAME passed
     public static final int ERROR_KEYNAME_EXISTS	=  0x0000002A; // KEYNAME already exists when adding or creating a key
+    public static final int ERROR_KEYNAME_NOTFOUND	=  0x0000002C; // KEYNAME not found
     //
     //
     // Alt Coins crypto currencies
