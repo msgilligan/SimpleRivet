@@ -13,7 +13,7 @@ package com.rivetz.samples.simplerivet;
 
 public class Rivet {
     // Intent
-    public static final String RIVET_INTENT		= "com.rivetz.adapter.RIVETZ_ANDROID";
+    public static final String RIVET_INTENT		= "com.rivetz.adapter.BRIDGE";
     //
     // Rivet.java Version
     //
@@ -22,23 +22,25 @@ public class Rivet {
     //
     public static final int RIVETJAVA_VERSION_MAJOR = 0;
     public static final int RIVETJAVA_VERSION_MINOR = 0;
-    public static final int RIVETJAVA_VERSION_PATCH = 2;
+    public static final int RIVETJAVA_VERSION_PATCH = 4;
     //
     // The single version number has the following structure:
     //    MMNNPP00
     //    Major version | Minor version | Patch version
     //
-    public static final int    RIVETJAVA_VERSION_NUMBER     = 0x00000200;
-    public static final String RIVETJAVA_VERSION		= "0.0.2";
-    public static final String RIVETJAVA_VERSION_FULL	= "Rivet.java v0.0.2";
+    public static final int    RIVETJAVA_VERSION_NUMBER     = 0x00000400;
+    public static final String RIVETJAVA_VERSION		= "0.0.4";
+    public static final String RIVETJAVA_VERSION_FULL	= "Rivet.java v0.0.4";
     //
     // Instructions
     //
     // Request Codes: Registration
     //
-    public static final int INSTRUCT_GETPOINTER	  = 0001; // Get Pointer
+    public static final int INSTRUCT_PAIRDEVICE	  = 0001; // Get Pointer
     public static final int INSTRUCT_REGISTERPROVIDER = 0002; // Service provider pairs with device
     public static final int INSTRUCT_EXECUTE	  = 0003; // Execute a server signed instruction
+    public static final int INSTRUCT_GETVERSION   = 0004; // Get TA Version Information
+    public static final int INSTRUCT_CHECKUPDATE = 0005; // Check with Intercede for a TA update
     // Request Codes: Service Provider key functionality for storing keys in RivetAndroid
     public static final int INSTRUCT_ADDKEY		= 1001; // Add Key (not secure since key is loaded from Normal World)
     public static final int INSTRUCT_GETKEY		= 1002; // Get Key
@@ -92,6 +94,10 @@ public class Rivet {
     public static final String EXTRA_SHAREDKEY	= "EXTRA_SHAREDKEY";
     public static final String EXTRA_KEY		= "EXTRA_KEY";
     public static final String EXTRA_HASH_ALGO	= "EXTRA_HASH_ALGO";
+    public static final String EXTRA_TAVERSION  = "EXTRA_TAVERSION";
+    public static final String EXTRA_TEEVERSION = "EXTRA_TEEVERSION";
+    public static final String EXTRA_SILENT     = "EXTRA_SILENT";
+
     // KEYTYPE
     public static final String KEYTYPE_COIN_BTC		= "COIN_BTC";		/* Bitcoin (alt coins beloow) */
     public static final String KEYTYPE_ECDSA_DEFAULT 	= "COIN_BTC";		/*!< bitcoin / 256-bits "Koblitz" curve */
@@ -134,6 +140,14 @@ public class Rivet {
     public static final int ERROR_INVALID_KEYNAME	=  0x00000028; // Invalid KEYNAME passed
     public static final int ERROR_KEYNAME_EXISTS	=  0x0000002A; // KEYNAME already exists when adding or creating a key
     public static final int ERROR_KEYNAME_NOTFOUND	=  0x0000002C; // KEYNAME not found
+    public static final int ERROR_LOADING_TA       	=  0x00000030; // Error while loading the TA binary
+    public static final int ERROR_OPEN_TA           =  0x00000032; // Error opening TA binary
+    public static final int ERROR_PAIRDEVICE_RIVETZ =  0x00000040; // Rivetz.NET returned an unexpected blank response (404/405,etc)
+    public static final int ERROR_PAIRDEVICE_JSON	=  0x00000042; // Rivetz.NET returned malformed JSON response
+    public static final int ERROR_PAIRDEVICE_FAIL	=  0x00000044; // Rivetz.NET returned failure JSON response
+    public static final int ERROR_PAIRDEVICE_SUID	=  0x00000046; // Rivetz.NET returned failure unable to determine SUID
+    public static final int ERROR_VERSION_ERROR     =  0x00000050; // Calling TA Version function failed to return result
+
     //
     //
     // Alt Coins crypto currencies

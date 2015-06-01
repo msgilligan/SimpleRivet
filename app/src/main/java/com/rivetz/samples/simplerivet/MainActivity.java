@@ -23,14 +23,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+    // this is the SPID for the Rivetz Developer Tools service provider account
     private static final String MYSPID =
-            "98f88054-f98c-440c-81aa-77fa70a31116-fbca7c00-0602-4c1f-a354-820ae9ec46b9";
+            "029d785242baad9f3d7bedcfca29d5391b3c247a3d4eaf5c3a0a5edd9489d1fcad";
     private static final String keyName = "MyKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pairDevice();
+    }
+
+    public void pairDevice() {
+        // Pairing establishes the service provider on this device. It creates
+        // the key store that will hold the keys created with this SPID
+        // If the SPID is already paired, the result will be RESULT_OK. If
+        // not the user will be prompted to accept the pairing.
+        Intent intent = new Intent("com.rivetz.adapter.PAIR")
+                .putExtra(Rivet.EXTRA_SPID, MYSPID)
+                .putExtra(Rivet.EXTRA_SILENT, true);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, Rivet.INSTRUCT_PAIRDEVICE);
+        }
     }
 
     public void buttonOnClick(View v) {
@@ -79,16 +95,21 @@ public class MainActivity extends ActionBarActivity {
         } else if (requestCode == Rivet.INSTRUCT_GETKEY && resultCode == RESULT_OK) {
             // change the intent fired to GETKEY to display the public key
             String pubKey = data.getStringExtra(Rivet.EXTRA_PUBLICDATA);
-            output.append("\npubkey=" + pubKey + "\n");
+            output.append("pubkey=" + pubKey + "\n");
 
         // on a response from SIGN print the returned signature
         } else if (requestCode == Rivet.INSTRUCT_SIGN && resultCode == RESULT_OK) {
             String signature = data.getStringExtra(Rivet.EXTRA_SIGNATURE);
-            output.append("\nsignature=" + signature + "\n");
+            output.append("signature=" + signature + "\n");
+
+        // on a successful response to pair device
+        } else if (requestCode == Rivet.INSTRUCT_PAIRDEVICE && resultCode == RESULT_OK) {
+            output.append("Device is paired");
+
         } else if (resultCode == RESULT_CANCELED) {
-            output.append("\ncancelled request code = "+String.valueOf(requestCode)+"\n");
+            output.append("cancelled request code = " + String.valueOf(requestCode) + "\n");
         } else {
-            output.append("\nerror:\n  Request Code = "+String.valueOf(requestCode)+"\n"+
+            output.append("error:\n  Request Code = "+String.valueOf(requestCode)+"\n"+
                     "  Result Code = "+Rivet.FormatError(resultCode)+"\n");
         }
     }

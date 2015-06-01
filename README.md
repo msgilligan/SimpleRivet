@@ -10,4 +10,7 @@ This repository is configured as a Android Studio project. If you want to build 
 * [activity_main.xml](./app/src/main/res/layout/activity_main.xml)
 * [AndroidManifest.xml](./app/src/main/AndroidManifest.xml)
 
+After importing the project into Android Studio, be sure to update local.properties with
+the path to your Android SDK.
+
 Please contact support@rivetz.com with any questions.
